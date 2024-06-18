@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useUserContext } from "../hooks/useUserContext";
 import ErrorMessage from "./ErrorMessage";
-import { InputFieldProps } from "../types";
+import { InputFieldProps, UserProps } from "../types";
 
 const InputFieldContainer = styled.div`
   display: flex;
@@ -55,6 +55,10 @@ const Busca: React.FC = () => {
     }
   };
 
+  const openProfile = (user: UserProps) => {
+    window.open(user.link, "_blank");
+  };
+
   return (
     <div>
       {inputError && <ErrorMessage message={inputError} />}
@@ -82,14 +86,13 @@ const Busca: React.FC = () => {
       {users && (
         <ResultsContainer>
           {users.items.map((user) => (
-            <Result key={user.user_id}>
+            <Result key={user.user_id} onClick={() => openProfile(user)}>
               <UserInfo>
                 <UserName>{user.display_name}</UserName>
                 <Badges>
                   <Badge color="gold">{user.badge_counts.gold}</Badge>
                   <Badge color="silver">{user.badge_counts.silver}</Badge>
                   <Badge color="bronze">{user.badge_counts.bronze}</Badge>
-                  
                 </Badges>
               </UserInfo>
             </Result>
@@ -119,6 +122,7 @@ const ResultsContainer = styled.div`
 
 const Result = styled.div`
   margin-bottom: 10px;
+  cursor: pointer; /* Para indicar que o elemento é clicável */
 `;
 
 const UserInfo = styled.div`
@@ -130,6 +134,7 @@ const UserName = styled.p`
   color: white;
   margin: 0;
   margin-right: 20px;
+  cursor: pointer; /* Altera o cursor para indicar que é clicável */
 `;
 
 const Badges = styled.div`
