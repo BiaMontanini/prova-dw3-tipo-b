@@ -44,3 +44,19 @@ interface BadgeProps {
 export interface ErrorProps {
   message: string;
 }
+
+export interface UserContextState {
+  users: PageProps | null;
+  error: string | null;
+  inputError: string | null;
+  getUsers: (page: number, fromdate: number, todate: number) => Promise<void>;
+  setError: (error: string | null) => void;
+  setInputError: (error: string | null) => void;
+}
+
+export interface InputFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
